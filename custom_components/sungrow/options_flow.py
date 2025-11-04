@@ -3,8 +3,6 @@ from homeassistant.config_entries import OptionsFlow, ConfigEntry
 from homeassistant.const import CONF_SCAN_INTERVAL
 
 class SungrowInverterOptionsFlow(OptionsFlow):
-    def __init__(self, config_entry: ConfigEntry):
-        self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
         if user_input is not None:

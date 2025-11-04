@@ -73,5 +73,4 @@ class SungrowInverterConfigFlow(ConfigFlow, domain=DOMAIN):
     def async_get_options_flow(
         config_entry: ConfigEntry,
     ) -> SungrowInverterOptionsFlow:
-        """Create the options flow."""
-        return SungrowInverterOptionsFlow(config_entry)
+        return SungrowInverterOptionsFlow()
