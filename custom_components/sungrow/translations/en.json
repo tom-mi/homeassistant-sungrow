@@ -14,7 +14,8 @@
                     "host": "Hostname or IP address of inverter",
                     "port": "Port of inverter connection",
                     "slave": "MODBUS slave number",
-                    "use_local_time": "Use local time?"
+                    "use_local_time": "Use local time?",
+                    "scan_interval": "Scan interval (in seconds)"
                 },
                 "data_description": {
                     "host": "Note: In case of IP make sure it's static\n",

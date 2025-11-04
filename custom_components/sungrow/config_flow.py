@@ -3,11 +3,12 @@ from pprint import pformat
 from typing import Any
 
 import voluptuous as vol  # type: ignore
-from homeassistant.config_entries import ConfigFlow
-from homeassistant.const import CONF_HOST, CONF_PORT, CONF_SLAVE
+from homeassistant.config_entries import ConfigFlow, ConfigEntry
+from homeassistant.const import CONF_HOST, CONF_PORT, CONF_SLAVE, CONF_SCAN_INTERVAL
 
 from .const import DOMAIN
 from .core.inverter import SungrowInverter
+from .options_flow import SungrowInverterOptionsFlow
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,7 @@ class SungrowInverterConfigFlow(ConfigFlow, domain=DOMAIN):
             vol.Required(CONF_HOST, default=user_input.get(CONF_HOST, "")): str,
             vol.Required(CONF_PORT, default=user_input.get(CONF_PORT, 502)): int,
             vol.Required(CONF_SLAVE, default=user_input.get(CONF_SLAVE, 1)): int,
+            vol.Required(CONF_SCAN_INTERVAL, default=user_input.get(CONF_SCAN_INTERVAL, 60)): int,
         }
 
         return self.async_show_form(
@@ -66,3 +68,10 @@ class SungrowInverterConfigFlow(ConfigFlow, domain=DOMAIN):
                 # FIXME: more precise error
                 errors = {"base": "cannot_connect"}
                 return await self._async_show_user_form(user_input, errors)
+
+    @staticmethod
+    def async_get_options_flow(
+        config_entry: ConfigEntry,
+    ) -> SungrowInverterOptionsFlow:
+        """Create the options flow."""
+        return SungrowInverterOptionsFlow(config_entry)
