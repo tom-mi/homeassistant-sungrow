@@ -1,6 +1,6 @@
 import voluptuous as vol
 from homeassistant.config_entries import OptionsFlow, ConfigEntry
-
+from homeassistant.const import CONF_SCAN_INTERVAL
 
 class SungrowInverterOptionsFlow(OptionsFlow):
     def __init__(self, config_entry: ConfigEntry):
@@ -11,8 +11,7 @@ class SungrowInverterOptionsFlow(OptionsFlow):
             return self.async_create_entry(title="", data=user_input)
 
         options_schema = vol.Schema({
-            vol.Optional("scan_interval", default=self.config_entry.options.get("scan_interval", 30)): int,
-            vol.Optional("use_local_time", default=self.config_entry.options.get("use_local_time", False)): bool,
+            vol.Optional(CONF_SCAN_INTERVAL, default=self.config_entry.options.get(CONF_SCAN_INTERVAL, 30)): int,
         })
 
         return self.async_show_form(

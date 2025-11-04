@@ -153,6 +153,7 @@ async def async_setup_entry(
         raise ConfigEntryNotReady("Failed to connect to inverter")
 
     async with inverter:
+        logger.warning('config entry data: ', str(config_entry.data))
         update_interval = max(
             timedelta(seconds=config_entry.data.get(CONF_SCAN_INTERVAL, 60)),
             MIN_TIME_BETWEEN_UPDATES,
