@@ -148,12 +148,12 @@ async def async_setup_entry(
     Called upon config_flow completion and on start of Home Assistant.
     """
 
+    logger.debug('config_entry=' + str(config_entry.data))
     inverter = await SungrowInverter.create(config_entry.data)
     if not inverter:
         raise ConfigEntryNotReady("Failed to connect to inverter")
 
     async with inverter:
-        logger.warning('config entry data: ', str(config_entry.data))
         update_interval = max(
             timedelta(seconds=config_entry.data.get(CONF_SCAN_INTERVAL, 60)),
             MIN_TIME_BETWEEN_UPDATES,
