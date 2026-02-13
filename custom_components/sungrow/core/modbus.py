@@ -80,7 +80,7 @@ class Connection:
     def __init__(self, host: str, port: int, slave: int):
         self._slave = slave
         self._client = pymodbus.client.AsyncModbusTcpClient(
-            host=host, port=port, timeout=2, retries=1, retry_on_empty=True
+            host=host, port=port, timeout=2, retries=1
         )
         self._detached = False
 
