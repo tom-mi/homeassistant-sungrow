@@ -1,6 +1,12 @@
 import voluptuous as vol
-from homeassistant.config_entries import OptionsFlow, ConfigEntry
+from homeassistant.config_entries import OptionsFlow
 from homeassistant.const import CONF_SCAN_INTERVAL
+from homeassistant.helpers import config_validation as cv
+
+# Constants for host, port, and slave
+CONF_HOST = "host"
+CONF_PORT = "port"
+CONF_SLAVE = "slave"
 
 class SungrowInverterOptionsFlow(OptionsFlow):
 
@@ -14,6 +20,9 @@ class SungrowInverterOptionsFlow(OptionsFlow):
             return self.async_create_entry(title="", data={})
 
         options_schema = vol.Schema({
+            vol.Optional(CONF_HOST, default=self.config_entry.data.get(CONF_HOST, "")): cv.string,
+            vol.Optional(CONF_PORT, default=self.config_entry.data.get(CONF_PORT, 502)): cv.port,
+            vol.Optional(CONF_SLAVE, default=self.config_entry.data.get(CONF_SLAVE, 1)): int,
             vol.Optional(CONF_SCAN_INTERVAL, default=self.config_entry.data.get(CONF_SCAN_INTERVAL, 60)): int,
         })
 
